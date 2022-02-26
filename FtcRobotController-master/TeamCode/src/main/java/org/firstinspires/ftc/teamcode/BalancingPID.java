@@ -37,6 +37,11 @@ public class BalancingPID extends BalancingRobot{
                 currentAngle = -getCurrentAngleX();
                 speed = pid(targetAngle, currentAngle);
 
+                // Robot has fallen
+                if (currentAngle < 45 || currentAngle > 135) {
+                    speed = 0.0;
+                }
+
                 hardware.LeftDrive.setPower(speed);
                 hardware.RightDrive.setPower(speed);
             }
@@ -52,7 +57,6 @@ public class BalancingPID extends BalancingRobot{
 
         double iTerm = 0.0;
         double lastTime = 0.0;
-        double maxPID = 1.0;
         double oldValue = 0.0;
 
         // Calculate Time
