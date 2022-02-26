@@ -31,26 +31,33 @@ public class BalancingPID extends BalancingRobot{
 
         pidTimer.reset();
         while(opModeIsActive()) {
+            // Run if Timer is Ready
             if((pidTimer.milliseconds() - timerValue) > LOOP_TIME) {
                 timerValue = pidTimer.milliseconds();
 
+                // Get Current Angle
                 currentAngle = -getCurrentAngleX();
+
+                // Calculate Correction Speed
                 speed = pid(targetAngle, currentAngle);
 
-                // Robot has fallen
+                // Fall Detection
                 if (currentAngle < 45 || currentAngle > 135) {
                     speed = 0.0;
                 }
 
+                // Motor Control
                 hardware.LeftDrive.setPower(speed);
                 hardware.RightDrive.setPower(speed);
             }
         }
     }
 
+    // Method for PID Error Calculation
     public double pid(double target, double current) {
         double power = 0.0;
 
+        // TODO TUNE PID
         double P = 0.0;
         double I = 0.0;
         double D = 0.0;
