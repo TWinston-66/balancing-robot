@@ -36,6 +36,9 @@ public class BalancingPID extends BalancingRobot{
 
                 currentAngle = -getCurrentAngleX();
                 speed = pid(targetAngle, currentAngle);
+
+                hardware.LeftDrive.setPower(speed);
+                hardware.RightDrive.setPower(speed);
             }
         }
     }
