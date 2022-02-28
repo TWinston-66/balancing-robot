@@ -38,6 +38,7 @@ public class BalancingPID extends BalancingRobot{
                 // Get Current Angle
                 currentAngle = -getCurrentAngleX();
 
+                telemetry.addData(">", currentAngle);
                 // Calculate Correction Speed
                 speed = pid(targetAngle, currentAngle);
 
@@ -49,6 +50,9 @@ public class BalancingPID extends BalancingRobot{
                 // Motor Control
                 hardware.LeftDrive.setPower(speed);
                 hardware.RightDrive.setPower(speed);
+
+                telemetry.addData(">", speed);
+                telemetry.update();
             }
         }
     }
@@ -58,9 +62,9 @@ public class BalancingPID extends BalancingRobot{
         double power = 0.0;
 
         // TODO TUNE PID
-        double P = 0.0;
+        double P = 0.075;
         double I = 0.0;
-        double D = 0.0;
+        double D = 0.1;
 
         double iTerm = 0.0;
         double lastTime = 0.0;
